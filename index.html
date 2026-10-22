@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aldi Faturrahim</title>
+<meta name="description" content="Mahasiswa Teknologi Rekayasa Elektro, Sekolah Vokasi UGM. Tertarik pada ketenagaan listrik dan instalasi listrik berarus besar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#181a1f; --surface:#22252b; --line:#3a3f48;
+  --text:#ecebe7; --muted:#a4a8b0; --accent:#f2b33d;
+  --display:"Archivo","Arial Black",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1.0625rem/1.65 var(--body)}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.5rem}
+
+/* Menu */
+.nav{position:sticky;top:0;z-index:5;background:rgba(24,26,31,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem 1.5rem;padding-top:.7rem;padding-bottom:.7rem}
+.brand{font:800 1.1rem var(--display);color:var(--text);text-decoration:none}
+#menu{display:flex;flex-wrap:wrap;gap:.25rem;list-style:none;margin:0;padding:0}
+@media(min-width:760px){#menu{margin-left:auto}}
+#menu a{display:block;padding:.4rem .8rem;border-radius:.4rem;color:var(--muted);text-decoration:none}
+#menu a:hover{color:var(--text);background:var(--surface)}
+#menu a[aria-current=page]{color:#181a1f;background:var(--accent);font-weight:500}
+
+/* Hero */
+.hero{padding:4.5rem 0 0}
+.hero h1{font:800 clamp(2.8rem,9vw,6.2rem)/.95 var(--display);letter-spacing:-.03em;margin:0 0 1.25rem}
+.hero .prodi{font:500 1.25rem/1.4 var(--display);margin:0 0 1rem;color:var(--accent)}
+.hero .desc{max-width:38rem;margin:0;color:var(--muted);font-size:1.15rem}
+.wave{display:block;width:100%;height:auto;margin-top:3rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.wave path{fill:none;stroke-width:2.5;stroke-linecap:round}
+
+/* Halaman */
+.ptitle{font:800 clamp(2rem,6vw,3.2rem)/1.05 var(--display);letter-spacing:-.02em;margin:3rem 0 2rem}
+.block{padding:3rem 0;border-top:1px solid var(--line)}
+.row{display:grid;gap:1.5rem;grid-template-columns:1fr}
+@media(min-width:800px){.row{grid-template-columns:13rem 1fr;gap:3rem}}
+h2{font:800 1.6rem/1.2 var(--display);margin:0;letter-spacing:-.01em}
+.facts{display:grid;gap:.9rem 2rem;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));margin:1.5rem 0 0}
+.facts dt{color:var(--muted);font-size:.95rem}
+.facts dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.item{padding:0 0 1.5rem 1.25rem;border-left:2px solid var(--line);margin-bottom:1.5rem}
+.item:last-child{margin-bottom:0;padding-bottom:0}
+.item h3{font:500 1.15rem/1.35 var(--display);margin:0}
+.item p{margin:.25rem 0 0;color:var(--muted)}
+.empty{margin:0 0 4rem;padding:1.5rem;border:1px dashed var(--line);border-radius:.5rem;color:var(--muted);background:var(--surface)}
+.list{margin-bottom:4rem}
+.btn{display:inline-block;background:var(--accent);color:#181a1f;font-weight:500;text-decoration:none;padding:.7rem 1.3rem;border-radius:.4rem}
+.btn:hover{filter:brightness(1.08)}
+.links{display:flex;flex-wrap:wrap;gap:1.25rem;margin:1.25rem 0 0;padding:0;list-style:none}
+footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Menu utama">
+  <div class="wrap"><a class="brand" href="#tentang" id="brand"></a><ul id="menu"></ul></div>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="wrap">
+    <h1 id="nama"></h1>
+    <p class="prodi" id="prodi"></p>
+    <p class="desc" id="deskripsi"></p>
+    <ul class="links" id="hlinks"></ul>
+  </div>
+  <svg class="wave" viewBox="0 0 1200 140" role="img" aria-label="Gelombang sinus tiga fasa" preserveAspectRatio="none">
+    <path id="w1" stroke="#f2b33d"/><path id="w2" stroke="#7fb4e0"/><path id="w3" stroke="#c9c5bb"/>
+  </svg>
+</header>
+
+<main class="wrap" id="main"></main>
+<footer><div class="wrap" id="footer"></div></footer>
+
+<script>
+/* ===== EDIT BAGIAN INI SAJA =====
+   Ubah teks di bawah untuk memperbarui website.
+   Menambah entri: salin satu baris { ... } di dalam daftar [ ], lalu isi datanya.
+   Setiap entri memiliki: judul, ket (keterangan), periode, dan url (opsional, untuk tautan).
+   Halaman dengan daftar kosong [] tetap tampil dengan pesan "belum ada". */
+const DATA = {
+  nama: "Aldi Faturrahim",
+  nim: "26/586907/SV/29133",
+  prodi: "Teknologi Rekayasa Elektro",
+  fakultas: "Sekolah Vokasi, Universitas Gadjah Mada",
+  angkatan: "2026",
+  deskripsi: "Mahasiswa Teknologi Rekayasa Elektro yang memiliki ketertarikan terhadap ketenagaan listrik dan instalasi listrik berarus besar.",
+  email: "aldifaturrahim@mail.ugm.ac.id",
+
+  tautan: [
+    { label: "GitHub", url: "https://github.com/aldifaturrahim" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/aldifaturrahim" }
+  ],
+
+  pendidikan: [
+    { judul: "Universitas Gadjah Mada", ket: "Sekolah Vokasi, Teknologi Rekayasa Elektro", periode: "2026 sampai sekarang" },
+    { judul: "SMAN 3 Yogyakarta", ket: "", periode: "" }
+  ],
+
+  // Contoh: { judul: "Staf Divisi X", ket: "Nama organisasi", periode: "2026", url: "" }
+  pekerjaan: [],
+  // Contoh: { judul: "Juara 1 Lomba X", ket: "Penyelenggara", periode: "2026", url: "" }
+  kompetisi: [],
+  // Contoh: { judul: "Nama projek", ket: "Deskripsi singkat", periode: "2026", url: "https://github.com/..." }
+  projek: [],
+  // Contoh: { judul: "Judul artikel", ket: "Ringkasan singkat", periode: "Okt 2026", url: "https://..." }
+  artikel: []
+};
+/* ===== AKHIR BAGIAN EDIT ===== */
+
+const PAGES = [["tentang","Tentang"],["pekerjaan","Pekerjaan"],["kompetisi","Kompetisi"],["projek","Projek"],["artikel","Artikel"],["kontak","Kontak"]];
+const KOSONG = {
+  pekerjaan: "Belum ada pengalaman kerja yang dicantumkan.",
+  kompetisi: "Belum ada kompetisi yang dicantumkan.",
+  projek: "Belum ada projek yang dicantumkan.",
+  artikel: "Belum ada artikel yang diterbitkan."
+};
+
+const $ = (s) => document.querySelector(s);
+const el = (tag, props = {}, kids = []) => {
+  const n = Object.assign(document.createElement(tag), props);
+  kids.forEach((k) => n.append(k));
+  return n;
+};
+const linkList = () => DATA.tautan.map((t) =>
+  el("li", {}, [el("a", { href: t.url, textContent: t.label, target: "_blank", rel: "noopener" })]));
+
+// Hero dan menu
+$("#nama").textContent = DATA.nama;
+$("#prodi").textContent = DATA.prodi;
+$("#deskripsi").textContent = DATA.deskripsi;
+$("#brand").textContent = DATA.nama;
+$("#footer").textContent = "© " + new Date().getFullYear() + " " + DATA.nama;
+$("#hlinks").append(...linkList());
+PAGES.forEach(([id, label]) => $("#menu").append(el("li", {}, [el("a", { href: "#" + id, textContent: label, id: "m-" + id })])));
+
+// Halaman
+const main = $("#main");
+const page = (id) => main.appendChild(el("div", { id: "p-" + id, hidden: true }));
+const block = (title, body) => el("div", { className: "block" }, [el("div", { className: "row" }, [el("h2", { textContent: title }), body])]);
+const list = (items) => el("div", {}, items.map((i) => el("div", { className: "item" }, [
+  el("h3", {}, [i.url ? el("a", { href: i.url, textContent: i.judul, target: "_blank", rel: "noopener" }) : i.judul]),
+  ...[i.ket, i.periode].filter(Boolean).map((t) => el("p", { textContent: t }))
+])));
+
+// Tentang
+const dl = el("dl", { className: "facts" });
+[["NIM", DATA.nim], ["Program studi", DATA.prodi], ["Fakultas", DATA.fakultas], ["Angkatan", DATA.angkatan]]
+  .forEach(([k, v]) => v && dl.append(el("div", {}, [el("dt", { textContent: k }), el("dd", { textContent: v })])));
+page("tentang").append(
+  block("Tentang", el("div", {}, [el("p", { textContent: DATA.deskripsi, style: "margin:0" }), dl])),
+  block("Pendidikan", list(DATA.pendidikan))
+);
+
+// Pekerjaan, kompetisi, projek, artikel
+["pekerjaan", "kompetisi", "projek", "artikel"].forEach((id) => {
+  const label = PAGES.find((p) => p[0] === id)[1];
+  const items = DATA[id];
+  page(id).append(
+    el("h1", { className: "ptitle", textContent: label }),
+    items.length ? el("div", { className: "list" }, [list(items)]) : el("p", { className: "empty", textContent: KOSONG[id] })
+  );
+});
+
+// Kontak
+page("kontak").append(
+  el("h1", { className: "ptitle", textContent: "Kontak" }),
+  el("div", { className: "list" }, [
+    el("a", { className: "btn", href: "mailto:" + DATA.email, textContent: "Kirim email" }),
+    el("p", { textContent: DATA.email, style: "margin:1rem 0 0;color:var(--muted)" }),
+    el("ul", { className: "links" }, linkList())
+  ])
+);
+
+// Navigasi antarhalaman berdasarkan #hash
+function route() {
+  let id = location.hash.slice(1);
+  if (!PAGES.some((p) => p[0] === id)) id = "tentang";
+  PAGES.forEach(([k]) => {
+    $("#p-" + k).hidden = k !== id;
+    const a = $("#m-" + k);
+    k === id ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current");
+  });
+  $("#hero").hidden = id !== "tentang";
+  const label = PAGES.find((p) => p[0] === id)[1];
+  document.title = (id === "tentang" ? "" : label + " - ") + DATA.nama;
+  scrollTo(0, 0);
+}
+addEventListener("hashchange", route);
+route();
+
+// Gelombang tiga fasa (beda fase 120 derajat)
+const paths = ["#w1", "#w2", "#w3"].map($);
+function draw(t) {
+  paths.forEach((p, i) => {
+    let d = "";
+    for (let x = 0; x <= 1200; x += 10) {
+      const y = 70 + 48 * Math.sin((x / 1200) * Math.PI * 4 - t - (i * 2 * Math.PI) / 3);
+      d += (x ? "L" : "M") + x + " " + y.toFixed(1);
+    }
+    p.setAttribute("d", d);
+  });
+}
+draw(0);
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches)
+  requestAnimationFrame(function loop(ms) { draw(ms / 900); requestAnimationFrame(loop); });
+</script>
+</body>
+</html>
